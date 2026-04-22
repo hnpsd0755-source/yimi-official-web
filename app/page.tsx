@@ -5,7 +5,7 @@ import {
   Activity, ShieldCheck, Factory, Cpu, Phone, Mail, MapPin, CheckCircle2,
   Boxes, ClipboardCheck, Globe, CalendarDays,
   BadgeCheck, Stethoscope, Search, Filter, ChevronRight,
-  Sparkles, Menu, X, ArrowRight,
+  Sparkles, Menu, X, ArrowRight, FileText,
 } from "lucide-react";
 
 // =====================================================================

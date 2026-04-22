@@ -5,7 +5,8 @@ import {
   Activity, ShieldCheck, Factory, Cpu, Phone, Mail, MapPin, CheckCircle2,
   Boxes, ClipboardCheck, Globe, CalendarDays,
   BadgeCheck, Stethoscope, Search, Filter, ChevronRight,
-  Sparkles, Menu, X, ArrowRight, FileText,
+  Sparkles, Menu, X, ArrowRight, FileText, 
+  Users, Building2, Target, Layers3, FileCheck, Award
 } from "lucide-react";
 
 // =====================================================================
@@ -36,9 +37,7 @@ interface ButtonProps extends React.ButtonHTMLAttributes<HTMLButtonElement> {
 }
 const Button = React.forwardRef<HTMLButtonElement, ButtonProps>(({ className, variant = "default", size = "default", ...props }, ref) => {
   const variants = {
-    // 升级为更有医疗科技感的蓝色渐变按钮
     default: "bg-gradient-to-b from-blue-500 to-blue-600 text-white hover:from-blue-600 hover:to-blue-700 shadow-md shadow-blue-500/20 border border-blue-600",
-    // 边框按钮加粗，悬浮时变蓝
     outline: "border-2 border-slate-200 bg-white hover:border-blue-500 hover:text-blue-600 text-slate-700 hover:bg-blue-50/50",
     ghost: "hover:bg-slate-100 text-slate-600",
     secondary: "bg-slate-900 text-white hover:bg-slate-800 shadow-md shadow-slate-900/10 border border-slate-800"
@@ -96,8 +95,8 @@ const categories = [
 const navItems: { label: string; page: Page }[] = [
   { label: "Home", page: "home" },
   { label: "Products", page: "products" },
-  { label: "About", page: "about" },
   { label: "OEM/ODM", page: "oem" },
+  { label: "About Us", page: "about" },
   { label: "Certifications", page: "certifications" },
   { label: "News", page: "news" },
   { label: "Contact", page: "contact" },
@@ -180,7 +179,6 @@ function parseHash(hash: string): { page: Page; product?: Product; category?: st
   return { page: "home" };
 }
 
-// 提取的通用 Feature List 组件
 const FeatureList = ({ features }: { features: string[] }) => (
   <div className="space-y-3 pt-2 border-t border-slate-100">
     {features.map((feature) => (
@@ -201,7 +199,7 @@ const FeatureList = ({ features }: { features: string[] }) => (
 function HomePage({ onGoProducts, onGoOem, onViewProduct }: any) {
   return (
     <div className="animate-in fade-in duration-500">
-      {/* 升级版 Hero Section：增加光影和网格背景 */}
+      {/* Hero Section */}
       <section className="relative overflow-hidden bg-slate-50/50 border-b border-slate-100 pt-10">
         <div className="absolute inset-0 bg-[linear-gradient(to_right,#f1f5f9_1px,transparent_1px),linear-gradient(to_bottom,#f1f5f9_1px,transparent_1px)] bg-[size:4rem_4rem] [mask-image:radial-gradient(ellipse_60%_50%_at_50%_0%,#000_70%,transparent_100%)] opacity-40"></div>
         <div className="absolute top-0 left-1/2 -translate-x-1/2 w-[800px] h-[400px] bg-blue-400/20 rounded-full blur-3xl opacity-50 -z-10"></div>
@@ -229,7 +227,6 @@ function HomePage({ onGoProducts, onGoOem, onViewProduct }: any) {
           </div>
           
           <div className="relative flex items-center justify-center">
-            {/* 产品图装饰底座 */}
             <div className="absolute inset-0 bg-gradient-to-tr from-blue-100 to-indigo-50 rounded-full blur-2xl opacity-60"></div>
             <img 
               src="https://c108.hongcdn.com/uploads/2205/professional-pulse-oximeter-facotry-4-%21j.webp" 
@@ -439,6 +436,200 @@ function ProductDetailPage({ product, onBack, onContact }: any) {
   );
 }
 
+// ---------------------------------------------------------------------
+// 高级下级页面重构：About Us
+// ---------------------------------------------------------------------
+function AboutPage() {
+  return (
+    <div className="animate-in fade-in duration-500">
+      <div className="relative bg-slate-900 py-32 overflow-hidden">
+        <div className="absolute inset-0 z-0">
+          <img src="https://images.unsplash.com/photo-1581091226825-a6a2a5aee158?auto=format&fit=crop&q=80&w=2000" alt="Factory Background" className="w-full h-full object-cover opacity-20" />
+          <div className="absolute inset-0 bg-gradient-to-t from-slate-900 via-slate-900/60 to-transparent"></div>
+        </div>
+        <div className="relative z-10 mx-auto max-w-7xl px-6 lg:px-8 text-center">
+          <Badge className="bg-white/10 text-white border-white/20 backdrop-blur-md mb-6">About Yimi Life</Badge>
+          <h1 className="text-4xl md:text-5xl lg:text-6xl font-black text-white tracking-tight mb-6">Pioneering Health <br/>Technology Since 2017</h1>
+          <p className="text-lg text-slate-300 max-w-2xl mx-auto font-medium">A high-tech enterprise dedicated to the R&D, production, and global sales of professional home medical devices.</p>
+        </div>
+      </div>
+
+      <div className="mx-auto max-w-7xl px-6 py-20 lg:px-8">
+        <div className="grid grid-cols-2 md:grid-cols-4 gap-6 mb-24">
+           {[
+             { icon: CalendarDays, val: "15+", label: "Years R&D Exp" },
+             { icon: Globe, val: "80+", label: "Export Countries" },
+             { icon: Factory, val: "2.1M+", label: "Annual Output" },
+             { icon: ShieldCheck, val: "100%", label: "ISO 13485 Compliant" }
+           ].map((stat, i) => (
+             <div key={i} className="bg-slate-50 rounded-[32px] p-8 text-center border border-slate-100">
+               <div className="w-12 h-12 bg-white rounded-2xl flex items-center justify-center text-blue-600 mx-auto mb-4 shadow-sm"><stat.icon className="w-6 h-6"/></div>
+               <div className="text-3xl font-black text-slate-900 mb-2">{stat.val}</div>
+               <div className="text-sm font-bold text-slate-500 uppercase tracking-wider">{stat.label}</div>
+             </div>
+           ))}
+        </div>
+
+        <div className="grid md:grid-cols-2 gap-16 items-center">
+          <div className="space-y-6">
+            <h2 className="text-3xl font-black text-slate-900 tracking-tight">Our Mission is to make healthcare accessible and accurate.</h2>
+            <p className="text-lg text-slate-600 leading-relaxed font-medium">Based in Shenzhen, the heart of China's tech innovation, Yimi Life integrates cutting-edge algorithms with robust manufacturing capabilities.</p>
+            <p className="text-lg text-slate-600 leading-relaxed font-medium">We specialize in Pulse Oximeters and Digital Blood Pressure Monitors, providing top-tier OEM and ODM services to global pharmaceutical chains, distributors, and online retailers.</p>
+          </div>
+          <div className="grid grid-cols-2 gap-4">
+            <img src="https://images.unsplash.com/photo-1582719508461-905c673771fd?auto=format&fit=crop&q=80&w=600" className="rounded-[32px] object-cover h-64 w-full shadow-sm" alt="Lab" />
+            <img src="https://images.unsplash.com/photo-1579684385127-1ef15d508118?auto=format&fit=crop&q=80&w=600" className="rounded-[32px] object-cover h-64 w-full shadow-sm translate-y-8" alt="Production" />
+          </div>
+        </div>
+      </div>
+    </div>
+  );
+}
+
+// ---------------------------------------------------------------------
+// 高级下级页面重构：OEM / ODM
+// ---------------------------------------------------------------------
+function OemPage({ onContact }: any) {
+  return (
+    <div className="animate-in fade-in duration-500 bg-slate-50/50">
+      <div className="mx-auto max-w-7xl px-6 py-20 lg:px-8 lg:py-24">
+        <div className="text-center max-w-3xl mx-auto mb-20 space-y-6">
+          <Badge className="bg-blue-100 text-blue-700 border-none">OEM & ODM Services</Badge>
+          <h1 className="text-4xl md:text-5xl lg:text-6xl font-black text-slate-900 tracking-tight leading-[1.1]">Your Brand. <br/><span className="text-blue-600">Our Manufacturing Excellence.</span></h1>
+          <p className="text-xl text-slate-600 font-medium">We offer end-to-end customization services, from PCB design to final packaging, tailored perfectly for your target market.</p>
+        </div>
+
+        <div className="grid md:grid-cols-2 gap-8 mb-24">
+          {[
+            { icon: Boxes, title: "Hardware & Tooling", desc: "Custom housing colors, logo silk-printing, unique shell tooling, and specialized retail packaging design." },
+            { icon: Cpu, title: "Algorithm Customization", desc: "Adjusting SpO2/PR algorithms (e.g., adding PI index) and PCB redesign for unique measurement requirements." },
+            { icon: Layers3, title: "Software & App Integration", desc: "Custom Bluetooth protocols, SDK/API support, and tailored UI/UX design for your telehealth applications." },
+            { icon: FileCheck, title: "Clinical & Regulatory Support", desc: "Providing necessary clinical data, technical files, and documentation to assist your local FDA/CE registration." }
+          ].map((item, i) => (
+            <Card key={i} className="bg-white hover:border-blue-200 transition-all border-2">
+              <CardContent className="p-8 flex gap-6">
+                <div className="w-16 h-16 rounded-[20px] bg-blue-50 flex items-center justify-center shrink-0"><item.icon className="w-8 h-8 text-blue-600" /></div>
+                <div>
+                  <h3 className="text-xl font-black text-slate-900 mb-3">{item.title}</h3>
+                  <p className="text-slate-500 font-medium leading-relaxed">{item.desc}</p>
+                </div>
+              </CardContent>
+            </Card>
+          ))}
+        </div>
+
+        <div className="bg-slate-900 rounded-[40px] p-10 md:p-16 text-white text-center relative overflow-hidden">
+           <div className="absolute top-0 right-0 w-96 h-96 bg-blue-500/20 rounded-full blur-[100px]"></div>
+           <h2 className="text-3xl font-black mb-12 relative z-10">Standard OEM Workflow</h2>
+           <div className="grid grid-cols-1 md:grid-cols-4 gap-8 relative z-10">
+              {[
+                { step: "01", title: "Requirement", desc: "Confirm specs, MOQ, and branding details." },
+                { step: "02", title: "Prototyping", desc: "Create 3D models and functional samples." },
+                { step: "03", title: "Verification", desc: "Clinical testing and regulatory compliance." },
+                { step: "04", title: "Mass Production", desc: "ISO 13485 certified manufacturing & QC." }
+              ].map((s, i) => (
+                <div key={i} className="relative">
+                  <div className="text-5xl font-black text-slate-700/50 mb-4">{s.step}</div>
+                  <h4 className="text-xl font-bold mb-2 text-blue-400">{s.title}</h4>
+                  <p className="text-sm text-slate-400 font-medium">{s.desc}</p>
+                  {i !== 3 && <div className="hidden md:block absolute top-6 -right-4 w-8 h-px bg-slate-700"></div>}
+                </div>
+              ))}
+           </div>
+           <div className="mt-16 relative z-10">
+              <Button size="lg" className="bg-white text-slate-900 hover:bg-slate-100 shadow-xl" onClick={onContact}>Start Your Project</Button>
+           </div>
+        </div>
+      </div>
+    </div>
+  );
+}
+
+// ---------------------------------------------------------------------
+// 高级下级页面重构：Certifications
+// ---------------------------------------------------------------------
+function CertificationsPage() {
+  return (
+    <div className="animate-in fade-in duration-500">
+      <div className="mx-auto max-w-7xl px-6 py-20 lg:px-8 lg:py-24 text-center">
+        <div className="max-w-3xl mx-auto space-y-6 mb-20">
+          <Badge className="bg-blue-50 text-blue-700 border-none">Quality Assurance</Badge>
+          <h1 className="text-4xl md:text-5xl font-black text-slate-900 tracking-tight">World-Class Compliance</h1>
+          <p className="text-xl text-slate-600 font-medium">Every device leaving our facility undergoes rigorous clinical-grade calibration and adheres strictly to global medical standards.</p>
+        </div>
+
+        <div className="grid md:grid-cols-3 gap-8">
+           {[
+             { title: "ISO 13485:2016", desc: "Medical Device Quality Management System Certification.", icon: Building2 },
+             { title: "CE (MDR)", desc: "Compliant with the new European Medical Device Regulation.", icon: BadgeCheck },
+             { title: "FDA 510(k)", desc: "Cleared for distribution and retail in the United States market.", icon: ShieldCheck },
+             { title: "RoHS / REACH", desc: "Strict adherence to hazardous substances regulations.", icon: CheckCircle2 },
+             { title: "FSC", desc: "Free Sales Certificate available for rapid global registration.", icon: Globe },
+             { title: "40+ Patents", desc: "Continuous innovation in algorithms and hardware design.", icon: Award }
+           ].map((cert, i) => (
+             <Card key={i} className="bg-white text-left hover:border-blue-500 transition-colors border-2">
+               <CardContent className="p-8">
+                 <div className="w-14 h-14 bg-slate-50 rounded-[16px] flex items-center justify-center text-blue-600 mb-6">
+                   <cert.icon className="w-7 h-7" />
+                 </div>
+                 <h3 className="text-2xl font-black text-slate-900 mb-3">{cert.title}</h3>
+                 <p className="text-slate-500 font-medium">{cert.desc}</p>
+               </CardContent>
+             </Card>
+           ))}
+        </div>
+      </div>
+    </div>
+  );
+}
+
+// ---------------------------------------------------------------------
+// 高级下级页面重构：News
+// ---------------------------------------------------------------------
+function NewsPage() {
+  const newsList = [
+    { type: "Exhibition", date: "Nov 11-14, 2024", title: "Yimi Life Showcases at MEDICA 2024, Germany", desc: "Join us at Hall 6, Booth 62C to experience our latest Bluetooth SpO2 and BP monitoring technologies for the European market.", image: "https://images.unsplash.com/photo-1540575861501-7cf05a4b125a?auto=format&fit=crop&q=80&w=800" },
+    { type: "Company News", date: "Sep 15, 2024", title: "New Handheld Oximeter YM-501 Receives CE MDR Clearance", desc: "Our clinical-grade handheld device has successfully passed the rigorous MDR assessment, ensuring top-tier safety and performance.", image: "https://images.unsplash.com/photo-1583947215259-38e31be8751f?auto=format&fit=crop&q=80&w=800" },
+    { type: "Industry Insight", date: "Jul 10, 2024", title: "How to Evaluate an OEM Medical Device Supplier in China", desc: "A comprehensive buyer's guide on auditing factories, checking ISO 13485 validity, and ensuring long-term supply chain stability.", image: "https://images.unsplash.com/photo-1505373877841-8d25f7d46678?auto=format&fit=crop&q=80&w=800" }
+  ];
+
+  return (
+    <div className="animate-in fade-in duration-500 bg-slate-50/50">
+      <div className="mx-auto max-w-7xl px-6 py-20 lg:px-8 lg:py-24">
+        <div className="flex flex-col md:flex-row justify-between items-end mb-16 gap-6">
+          <div className="space-y-4 max-w-2xl">
+            <Badge className="bg-blue-100 text-blue-700 border-none">Latest Updates</Badge>
+            <h1 className="text-4xl md:text-5xl font-black text-slate-900 tracking-tight">Global News & Events</h1>
+          </div>
+        </div>
+
+        <div className="grid md:grid-cols-2 lg:grid-cols-3 gap-8">
+          {newsList.map((news, i) => (
+             <Card key={i} className="flex flex-col overflow-hidden bg-white hover:-translate-y-2 transition-all duration-500 cursor-pointer border-2">
+               <div className="h-56 overflow-hidden relative">
+                 <img src={news.image} alt={news.title} className="w-full h-full object-cover hover:scale-105 transition-transform duration-700" />
+                 <div className="absolute top-4 left-4">
+                    <Badge className="bg-white/90 backdrop-blur-md shadow-sm border-none">{news.type}</Badge>
+                 </div>
+               </div>
+               <CardContent className="p-8 flex flex-col flex-grow">
+                 <div className="flex items-center gap-2 text-sm text-blue-600 font-bold mb-4">
+                   <CalendarDays className="w-4 h-4" /> {news.date}
+                 </div>
+                 <h3 className="text-xl font-black text-slate-900 mb-3 leading-snug hover:text-blue-600 transition-colors">{news.title}</h3>
+                 <p className="text-slate-500 font-medium leading-relaxed mb-6 flex-grow text-sm">{news.desc}</p>
+                 <div className="flex items-center text-sm font-bold text-slate-900 mt-auto uppercase tracking-wider hover:text-blue-600 transition-colors">
+                   Read Article <ArrowRight className="w-4 h-4 ml-2" />
+                 </div>
+               </CardContent>
+             </Card>
+          ))}
+        </div>
+      </div>
+    </div>
+  );
+}
+
 function ContactPage() {
   return (
     <div className="mx-auto max-w-7xl space-y-12 px-6 py-16 lg:px-8 lg:py-24 animate-in fade-in duration-500">
@@ -506,17 +697,6 @@ function ContactPage() {
   );
 }
 
-function SimplePageWrapper({ title, children }: { title: string, children: React.ReactNode }) {
-  return (
-    <div className="mx-auto max-w-7xl px-6 py-20 lg:px-8 lg:py-32 animate-in fade-in duration-500 text-center">
-      <h1 className="text-5xl font-black tracking-tight text-slate-900 mb-8">{title}</h1>
-      <div className="max-w-2xl mx-auto text-lg text-slate-600 font-medium leading-relaxed bg-slate-50/80 p-12 rounded-[40px] border border-slate-100 shadow-sm">
-        {children}
-      </div>
-    </div>
-  );
-}
-
 // =====================================================================
 // 主 App 组件 (包含路由与状态管理)
 // =====================================================================
@@ -526,7 +706,6 @@ export default function App() {
   const [selectedProduct, setSelectedProduct] = useState<Product | null>(null);
   const [mobileMenuOpen, setMobileMenuOpen] = useState(false);
 
-  // 1. 模拟客户端路由同步
   useEffect(() => {
     if (typeof window === "undefined") return;
     const syncFromHash = () => {
@@ -544,7 +723,6 @@ export default function App() {
     return () => window.removeEventListener("hashchange", syncFromHash);
   }, []);
 
-  // 2. 动态 SEO 标题更新机制 (核心优化点)
   useEffect(() => {
     const baseTitle = "Yimi Life";
     const titleMap: Record<string, string> = {
@@ -560,7 +738,6 @@ export default function App() {
     document.title = titleMap[page] || titleMap.home;
   }, [page, selectedProduct]);
 
-  // 页面导航处理
   const handleViewProduct = (product: Product) => {
     setSelectedProduct(product);
     setSelectedCategory(product.category);
@@ -583,10 +760,10 @@ export default function App() {
       case "products": return <ProductsPage selectedCategory={selectedCategory} setSelectedCategory={setSelectedCategory} onViewProduct={handleViewProduct} />;
       case "product-detail": return selectedProduct ? <ProductDetailPage product={selectedProduct} onBack={() => goToPage("products")} onContact={() => goToPage("contact")} /> : <ProductsPage selectedCategory="all" setSelectedCategory={setSelectedCategory} onViewProduct={handleViewProduct} />;
       case "contact": return <ContactPage />;
-      case "about": return <SimplePageWrapper title="About Yimi Life">Yimi Life is an ISO 13485 certified manufacturer based in Shenzhen, providing professional medical devices globally since 2017.</SimplePageWrapper>;
-      case "oem": return <SimplePageWrapper title="OEM / ODM Solutions">We offer full-stack customization including logo printing, packaging design, algorithm adjustments, and Bluetooth integration.</SimplePageWrapper>;
-      case "certifications": return <SimplePageWrapper title="Certifications">Our facility and products comply with ISO 13485, CE MDR, FDA 510(k), and RoHS standards.</SimplePageWrapper>;
-      case "news": return <SimplePageWrapper title="News & Events">Stay updated with our latest medical exhibitions like CMEF and MEDICA, and new product launches.</SimplePageWrapper>;
+      case "about": return <AboutPage />;
+      case "oem": return <OemPage onContact={() => goToPage("contact")} />;
+      case "certifications": return <CertificationsPage />;
+      case "news": return <NewsPage />;
       default: return <HomePage onGoProducts={() => goToPage("products")} onGoOem={() => goToPage("oem")} onViewProduct={handleViewProduct} />;
     }
   };

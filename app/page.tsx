@@ -437,14 +437,14 @@ function ProductDetailPage({ product, onBack, onContact }: any) {
 }
 
 // ---------------------------------------------------------------------
-// 高级下级页面重构：About Us (整合 Yimilife 真实官网数据)
+// 高级下级页面重构：About Us 
 // ---------------------------------------------------------------------
 function AboutPage() {
   return (
     <div className="animate-in fade-in duration-500">
       <div className="relative bg-slate-900 py-32 overflow-hidden">
         <div className="absolute inset-0 z-0">
-          <img src="https://images.unsplash.com/photo-1581091226825-a6a2a5aee158?auto=format&fit=crop&q=80&w=2000" alt="Factory Background" className="w-full h-full object-cover opacity-20" />
+          <img src="https://images.unsplash.com/photo-1581091226825-a6a2a5aee158?auto=format&fit=crop&q=80&w=2000" alt="Factory Background" className="w-full h-full object-cover opacity-30" />
           <div className="absolute inset-0 bg-gradient-to-t from-slate-900 via-slate-900/60 to-transparent"></div>
         </div>
         <div className="relative z-10 mx-auto max-w-7xl px-6 lg:px-8 text-center">
@@ -472,6 +472,11 @@ function AboutPage() {
            ))}
         </div>
 
+        {/* 增加公司前台或主实验室大图 */}
+        <div className="mb-20">
+             <img src="https://images.unsplash.com/photo-1551076805-e1869033e561?auto=format&fit=crop&q=80&w=1200" alt="Yimilife Factory HQ" className="w-full h-80 lg:h-[400px] object-cover rounded-[40px] shadow-lg border-4 border-slate-50" />
+        </div>
+
         <div className="grid md:grid-cols-2 gap-16 items-center mb-20">
           <div className="space-y-6">
             <h2 className="text-3xl font-black text-slate-900 tracking-tight">Our core advantage lies in an experienced R&D team with independent intellectual property rights.</h2>
@@ -494,7 +499,7 @@ function AboutPage() {
 }
 
 // ---------------------------------------------------------------------
-// 高级下级页面重构：OEM / ODM (整合 Yimilife 真实官网数据)
+// 高级下级页面重构：OEM / ODM (加入图文混排)
 // ---------------------------------------------------------------------
 function OemPage({ onContact }: any) {
   return (
@@ -506,15 +511,19 @@ function OemPage({ onContact }: any) {
           <p className="text-xl text-slate-600 font-medium">With over 15 years of industry experience, our engineers specialize in understanding market demands and producing best-in-class pulse oximeters and health monitors for clients' brands.</p>
         </div>
 
+        {/* 顶部服务卡片加入科技感占位图 */}
         <div className="grid md:grid-cols-3 gap-8 mb-24">
           {[
-            { icon: Globe, title: "In-depth Market Report", desc: "We have ample knowledge to successfully conduct a promotion study in your target market and provide suggestions on procurement." },
-            { icon: Boxes, title: "OEM Support", desc: "For OEM orders, we have rich experience and the most popular solutions in the market to recommend to you." },
-            { icon: Cpu, title: "ODM Customization", desc: "For ODM orders, our technical team can make custom services according to your function, structure, and material requirements." }
+            { icon: Globe, title: "In-depth Market Report", desc: "We have ample knowledge to successfully conduct a promotion study in your target market and provide suggestions on procurement.", img: "https://images.unsplash.com/photo-1460925895917-afdab827c52f?auto=format&fit=crop&q=80&w=600" },
+            { icon: Boxes, title: "OEM Support", desc: "For OEM orders, we have rich experience and the most popular solutions in the market to recommend to you.", img: "https://images.unsplash.com/photo-1581091226825-a6a2a5aee158?auto=format&fit=crop&q=80&w=600" },
+            { icon: Cpu, title: "ODM Customization", desc: "For ODM orders, our technical team can make custom services according to your function, structure, and material requirements.", img: "https://images.unsplash.com/photo-1518770660439-4636190af475?auto=format&fit=crop&q=80&w=600" }
           ].map((item, i) => (
-            <Card key={i} className="bg-white hover:border-blue-200 transition-all border-2">
-              <CardContent className="p-8 flex flex-col items-center text-center">
-                <div className="w-16 h-16 rounded-[20px] bg-blue-50 flex items-center justify-center shrink-0 mb-6"><item.icon className="w-8 h-8 text-blue-600" /></div>
+            <Card key={i} className="bg-white hover:-translate-y-2 transition-all duration-500 cursor-pointer border-2 overflow-hidden flex flex-col">
+              <div className="h-48 overflow-hidden relative">
+                 <img src={item.img} alt={item.title} className="w-full h-full object-cover hover:scale-105 transition-transform duration-700" />
+              </div>
+              <CardContent className="p-8 flex flex-col items-center text-center flex-grow">
+                <div className="w-16 h-16 rounded-full bg-blue-50 flex items-center justify-center -mt-16 mb-4 relative z-10 border-4 border-white shadow-sm"><item.icon className="w-7 h-7 text-blue-600" /></div>
                 <h3 className="text-xl font-black text-slate-900 mb-3">{item.title}</h3>
                 <p className="text-slate-500 font-medium leading-relaxed">{item.desc}</p>
               </CardContent>
@@ -550,9 +559,18 @@ function OemPage({ onContact }: any) {
 }
 
 // ---------------------------------------------------------------------
-// 高级下级页面重构：Certifications (整合 Yimilife 真实数据)
+// 高级下级页面重构：Certifications (画框式证书展示)
 // ---------------------------------------------------------------------
 function CertificationsPage() {
+  const certs = [
+    { title: "ISO 13485:2016", desc: "Medical Device Quality Management System Certification.", icon: Building2, img: "https://images.unsplash.com/photo-1589829085413-56de8ae18c73?auto=format&fit=crop&q=80&w=600" },
+    { title: "CE (MDR)", desc: "Compliant with the new European Medical Device Regulation.", icon: BadgeCheck, img: "https://images.unsplash.com/photo-1606326608606-aa0b62935f2b?auto=format&fit=crop&q=80&w=600" },
+    { title: "FDA 510(k)", desc: "Cleared for distribution and retail in the United States market.", icon: ShieldCheck, img: "https://images.unsplash.com/photo-1532938911079-1b06ac7ceec7?auto=format&fit=crop&q=80&w=600" },
+    { title: "40+ Patents", desc: "Nearly 40 patented technologies and software copyrights obtained.", icon: Award, img: "https://images.unsplash.com/photo-1505664173691-075197825b4b?auto=format&fit=crop&q=80&w=600" },
+    { title: "IP22 Degree", desc: "Protection against hazards of liquid and solid objects.", icon: ShieldCheck, img: "https://images.unsplash.com/photo-1581092335397-9583eb92d232?auto=format&fit=crop&q=80&w=600" },
+    { title: "RoHS / REACH", desc: "Strict adherence to hazardous substances regulations.", icon: CheckCircle2, img: "https://images.unsplash.com/photo-1611273426858-450d8ce80b1e?auto=format&fit=crop&q=80&w=600" }
+  ];
+
   return (
     <div className="animate-in fade-in duration-500">
       <div className="mx-auto max-w-7xl px-6 py-20 lg:px-8 lg:py-24 text-center">
@@ -562,20 +580,24 @@ function CertificationsPage() {
           <p className="text-xl text-slate-600 font-medium">Experienced quality inspectors conduct strict inspections on every device. Our facility is IP22 rated and adheres strictly to global medical standards.</p>
         </div>
 
-        <div className="grid md:grid-cols-3 gap-8">
-           {[
-             { title: "ISO 13485:2016", desc: "Medical Device Quality Management System Certification.", icon: Building2 },
-             { title: "CE (MDR)", desc: "Compliant with the new European Medical Device Regulation.", icon: BadgeCheck },
-             { title: "FDA 510(k)", desc: "Cleared for distribution and retail in the United States market.", icon: ShieldCheck },
-             { title: "40+ Patents", desc: "Nearly 40 patented technologies and software copyrights obtained.", icon: Award },
-             { title: "IP22 Degree", desc: "Protection against hazards of liquid and solid objects.", icon: ShieldCheck },
-             { title: "RoHS / REACH", desc: "Strict adherence to hazardous substances regulations.", icon: CheckCircle2 }
-           ].map((cert, i) => (
-             <Card key={i} className="bg-white text-left hover:border-blue-500 transition-colors border-2">
-               <CardContent className="p-8">
-                 <div className="w-14 h-14 bg-slate-50 rounded-[16px] flex items-center justify-center text-blue-600 mb-6">
-                   <cert.icon className="w-7 h-7" />
+        <div className="grid md:grid-cols-2 lg:grid-cols-3 gap-8">
+           {certs.map((cert, i) => (
+             <Card key={i} className="bg-white text-left hover:-translate-y-2 hover:shadow-xl hover:border-blue-300 transition-all duration-500 border-2 overflow-hidden flex flex-col group">
+               {/* 证书画框区域 */}
+               <div className="bg-slate-100 p-8 flex justify-center items-center border-b border-slate-100 relative overflow-hidden">
+                 {/* 背景高斯模糊效果 */}
+                 <div className="absolute inset-0 bg-cover bg-center blur-xl opacity-40 mix-blend-multiply" style={{ backgroundImage: `url(${cert.img})` }}></div>
+                 {/* 拟物化证书框 */}
+                 <div className="bg-white p-2 shadow-xl border border-slate-200 aspect-[3/4] w-40 flex items-center justify-center relative z-10 transition-transform duration-500 group-hover:scale-105">
+                      <img src={cert.img} alt={cert.title} className="w-full h-full object-cover opacity-90" />
+                      {/* 图标覆盖在中心以增强辨识度 */}
+                      <div className="absolute inset-0 flex items-center justify-center bg-white/20 backdrop-blur-[2px]">
+                         <cert.icon className="w-12 h-12 text-blue-700 drop-shadow-md" />
+                      </div>
                  </div>
+               </div>
+               
+               <CardContent className="p-8 flex-grow">
                  <h3 className="text-2xl font-black text-slate-900 mb-3">{cert.title}</h3>
                  <p className="text-slate-500 font-medium">{cert.desc}</p>
                </CardContent>
@@ -588,7 +610,7 @@ function CertificationsPage() {
 }
 
 // ---------------------------------------------------------------------
-// 高级下级页面重构：News (基于产品线和展会)
+// 高级下级页面重构：News (无需修改，原版已有大图)
 // ---------------------------------------------------------------------
 function NewsPage() {
   const newsList = [
@@ -635,7 +657,7 @@ function NewsPage() {
 }
 
 // ---------------------------------------------------------------------
-// 高级下级页面重构：Contact (整合 N-to-1 服务模式)
+// 高级下级页面重构：Contact (加入客服与支持环境配图)
 // ---------------------------------------------------------------------
 function ContactPage() {
   return (
@@ -650,6 +672,9 @@ function ContactPage() {
             <p className="text-lg leading-relaxed text-slate-500 font-medium">Enjoy our N-to-1 service mode. Live chat or add our WhatsApp/Skype to get a quick response for customized samples and mass production.</p>
           </div>
           
+          {/* 加入高质量客服/技术支持团队场景图 */}
+          <img src="https://images.unsplash.com/photo-1516387938699-a93567ec168e?auto=format&fit=crop&q=80&w=800" alt="Yimi Life Global Support Team" className="w-full h-56 object-cover rounded-[32px] shadow-sm" />
+
           <div className="space-y-6">
             <div className="flex items-center gap-6 p-6 bg-slate-50/80 rounded-[32px] border border-slate-100 shadow-sm hover:shadow-md hover:border-slate-200 transition-all">
               <div className="w-16 h-16 bg-white shadow-sm rounded-[20px] flex items-center justify-center text-blue-600"><Mail size={28} strokeWidth={2}/></div>

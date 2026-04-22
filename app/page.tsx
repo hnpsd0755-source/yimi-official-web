@@ -6,7 +6,7 @@ import {
   Boxes, ClipboardCheck, Globe, CalendarDays,
   BadgeCheck, Stethoscope, Search, Filter, ChevronRight,
   Sparkles, Menu, X, ArrowRight, FileText, 
-  Users, Building2, Target, Layers3, FileCheck, Award
+  Users, Building2, Target, Layers3, FileCheck, Award, MessageCircle, Zap, Thermometer
 } from "lucide-react";
 
 // =====================================================================
@@ -437,7 +437,7 @@ function ProductDetailPage({ product, onBack, onContact }: any) {
 }
 
 // ---------------------------------------------------------------------
-// 高级下级页面重构：About Us
+// 高级下级页面重构：About Us (整合 Yimilife 真实官网数据)
 // ---------------------------------------------------------------------
 function AboutPage() {
   return (
@@ -448,9 +448,11 @@ function AboutPage() {
           <div className="absolute inset-0 bg-gradient-to-t from-slate-900 via-slate-900/60 to-transparent"></div>
         </div>
         <div className="relative z-10 mx-auto max-w-7xl px-6 lg:px-8 text-center">
-          <Badge className="bg-white/10 text-white border-white/20 backdrop-blur-md mb-6">About Yimi Life</Badge>
-          <h1 className="text-4xl md:text-5xl lg:text-6xl font-black text-white tracking-tight mb-6">Pioneering Health <br/>Technology Since 2017</h1>
-          <p className="text-lg text-slate-300 max-w-2xl mx-auto font-medium">A high-tech enterprise dedicated to the R&D, production, and global sales of professional home medical devices.</p>
+          <Badge className="bg-white/10 text-white border-white/20 backdrop-blur-md mb-6">Established Oct 10, 2017</Badge>
+          <h1 className="text-4xl md:text-5xl lg:text-6xl font-black text-white tracking-tight mb-6">Pioneering Health <br/>Technology Innovation</h1>
+          <p className="text-lg text-slate-300 max-w-3xl mx-auto font-medium">
+            Since our establishment, we have continuously deepened our expertise in home medical fields such as blood oxygen saturation monitoring, blood pressure measurement, temperature monitoring, and nebulization therapy.
+          </p>
         </div>
       </div>
 
@@ -458,9 +460,9 @@ function AboutPage() {
         <div className="grid grid-cols-2 md:grid-cols-4 gap-6 mb-24">
            {[
              { icon: CalendarDays, val: "15+", label: "Years R&D Exp" },
-             { icon: Globe, val: "80+", label: "Export Countries" },
-             { icon: Factory, val: "2.1M+", label: "Annual Output" },
-             { icon: ShieldCheck, val: "100%", label: "ISO 13485 Compliant" }
+             { icon: Award, val: "40+", label: "Patents & Copyrights" },
+             { icon: Zap, val: "2-5 Days", label: "Custom Sample Delivery" },
+             { icon: ShieldCheck, val: "100%", label: "Strict QC Inspections" }
            ].map((stat, i) => (
              <div key={i} className="bg-slate-50 rounded-[32px] p-8 text-center border border-slate-100">
                <div className="w-12 h-12 bg-white rounded-2xl flex items-center justify-center text-blue-600 mx-auto mb-4 shadow-sm"><stat.icon className="w-6 h-6"/></div>
@@ -470,11 +472,16 @@ function AboutPage() {
            ))}
         </div>
 
-        <div className="grid md:grid-cols-2 gap-16 items-center">
+        <div className="grid md:grid-cols-2 gap-16 items-center mb-20">
           <div className="space-y-6">
-            <h2 className="text-3xl font-black text-slate-900 tracking-tight">Our Mission is to make healthcare accessible and accurate.</h2>
-            <p className="text-lg text-slate-600 leading-relaxed font-medium">Based in Shenzhen, the heart of China's tech innovation, Yimi Life integrates cutting-edge algorithms with robust manufacturing capabilities.</p>
-            <p className="text-lg text-slate-600 leading-relaxed font-medium">We specialize in Pulse Oximeters and Digital Blood Pressure Monitors, providing top-tier OEM and ODM services to global pharmaceutical chains, distributors, and online retailers.</p>
+            <h2 className="text-3xl font-black text-slate-900 tracking-tight">Our core advantage lies in an experienced R&D team with independent intellectual property rights.</h2>
+            <p className="text-lg text-slate-600 leading-relaxed font-medium">Our service tenet is to produce accurate and professional home medical devices for customers globally. We are mainly engaged in various health home medical devices and continue to develop innovative solutions.</p>
+            <div className="grid grid-cols-2 gap-4 pt-4">
+               <div className="flex items-center gap-2 font-bold text-slate-700"><CheckCircle2 className="w-5 h-5 text-blue-500"/> Fingertip Oximeters</div>
+               <div className="flex items-center gap-2 font-bold text-slate-700"><CheckCircle2 className="w-5 h-5 text-blue-500"/> Sphygmomanometers</div>
+               <div className="flex items-center gap-2 font-bold text-slate-700"><CheckCircle2 className="w-5 h-5 text-blue-500"/> Forehead Thermometers</div>
+               <div className="flex items-center gap-2 font-bold text-slate-700"><CheckCircle2 className="w-5 h-5 text-blue-500"/> SPO2 Sensors</div>
+            </div>
           </div>
           <div className="grid grid-cols-2 gap-4">
             <img src="https://images.unsplash.com/photo-1582719508461-905c673771fd?auto=format&fit=crop&q=80&w=600" className="rounded-[32px] object-cover h-64 w-full shadow-sm" alt="Lab" />
@@ -487,7 +494,7 @@ function AboutPage() {
 }
 
 // ---------------------------------------------------------------------
-// 高级下级页面重构：OEM / ODM
+// 高级下级页面重构：OEM / ODM (整合 Yimilife 真实官网数据)
 // ---------------------------------------------------------------------
 function OemPage({ onContact }: any) {
   return (
@@ -495,24 +502,21 @@ function OemPage({ onContact }: any) {
       <div className="mx-auto max-w-7xl px-6 py-20 lg:px-8 lg:py-24">
         <div className="text-center max-w-3xl mx-auto mb-20 space-y-6">
           <Badge className="bg-blue-100 text-blue-700 border-none">OEM & ODM Services</Badge>
-          <h1 className="text-4xl md:text-5xl lg:text-6xl font-black text-slate-900 tracking-tight leading-[1.1]">Your Brand. <br/><span className="text-blue-600">Our Manufacturing Excellence.</span></h1>
-          <p className="text-xl text-slate-600 font-medium">We offer end-to-end customization services, from PCB design to final packaging, tailored perfectly for your target market.</p>
+          <h1 className="text-4xl md:text-5xl lg:text-6xl font-black text-slate-900 tracking-tight leading-[1.1]">Complete <span className="text-blue-600">Technology Support</span></h1>
+          <p className="text-xl text-slate-600 font-medium">With over 15 years of industry experience, our engineers specialize in understanding market demands and producing best-in-class pulse oximeters and health monitors for clients' brands.</p>
         </div>
 
-        <div className="grid md:grid-cols-2 gap-8 mb-24">
+        <div className="grid md:grid-cols-3 gap-8 mb-24">
           {[
-            { icon: Boxes, title: "Hardware & Tooling", desc: "Custom housing colors, logo silk-printing, unique shell tooling, and specialized retail packaging design." },
-            { icon: Cpu, title: "Algorithm Customization", desc: "Adjusting SpO2/PR algorithms (e.g., adding PI index) and PCB redesign for unique measurement requirements." },
-            { icon: Layers3, title: "Software & App Integration", desc: "Custom Bluetooth protocols, SDK/API support, and tailored UI/UX design for your telehealth applications." },
-            { icon: FileCheck, title: "Clinical & Regulatory Support", desc: "Providing necessary clinical data, technical files, and documentation to assist your local FDA/CE registration." }
+            { icon: Globe, title: "In-depth Market Report", desc: "We have ample knowledge to successfully conduct a promotion study in your target market and provide suggestions on procurement." },
+            { icon: Boxes, title: "OEM Support", desc: "For OEM orders, we have rich experience and the most popular solutions in the market to recommend to you." },
+            { icon: Cpu, title: "ODM Customization", desc: "For ODM orders, our technical team can make custom services according to your function, structure, and material requirements." }
           ].map((item, i) => (
             <Card key={i} className="bg-white hover:border-blue-200 transition-all border-2">
-              <CardContent className="p-8 flex gap-6">
-                <div className="w-16 h-16 rounded-[20px] bg-blue-50 flex items-center justify-center shrink-0"><item.icon className="w-8 h-8 text-blue-600" /></div>
-                <div>
-                  <h3 className="text-xl font-black text-slate-900 mb-3">{item.title}</h3>
-                  <p className="text-slate-500 font-medium leading-relaxed">{item.desc}</p>
-                </div>
+              <CardContent className="p-8 flex flex-col items-center text-center">
+                <div className="w-16 h-16 rounded-[20px] bg-blue-50 flex items-center justify-center shrink-0 mb-6"><item.icon className="w-8 h-8 text-blue-600" /></div>
+                <h3 className="text-xl font-black text-slate-900 mb-3">{item.title}</h3>
+                <p className="text-slate-500 font-medium leading-relaxed">{item.desc}</p>
               </CardContent>
             </Card>
           ))}
@@ -520,13 +524,13 @@ function OemPage({ onContact }: any) {
 
         <div className="bg-slate-900 rounded-[40px] p-10 md:p-16 text-white text-center relative overflow-hidden">
            <div className="absolute top-0 right-0 w-96 h-96 bg-blue-500/20 rounded-full blur-[100px]"></div>
-           <h2 className="text-3xl font-black mb-12 relative z-10">Standard OEM Workflow</h2>
+           <h2 className="text-3xl font-black mb-12 relative z-10">Fast Customization Workflow</h2>
            <div className="grid grid-cols-1 md:grid-cols-4 gap-8 relative z-10">
               {[
-                { step: "01", title: "Requirement", desc: "Confirm specs, MOQ, and branding details." },
-                { step: "02", title: "Prototyping", desc: "Create 3D models and functional samples." },
-                { step: "03", title: "Verification", desc: "Clinical testing and regulatory compliance." },
-                { step: "04", title: "Mass Production", desc: "ISO 13485 certified manufacturing & QC." }
+                { step: "01", title: "Requirement", desc: "Live chat with N-to-1 service team to confirm logo & patterns." },
+                { step: "02", title: "Prototyping", desc: "Customized samples will be delivered in 2-5 days." },
+                { step: "03", title: "Verification", desc: "Strict quality inspections on each device by experts." },
+                { step: "04", title: "Mass Production", desc: "One-stop sourcing production to save your money and time." }
               ].map((s, i) => (
                 <div key={i} className="relative">
                   <div className="text-5xl font-black text-slate-700/50 mb-4">{s.step}</div>
@@ -537,7 +541,7 @@ function OemPage({ onContact }: any) {
               ))}
            </div>
            <div className="mt-16 relative z-10">
-              <Button size="lg" className="bg-white text-slate-900 hover:bg-slate-100 shadow-xl" onClick={onContact}>Start Your Project</Button>
+              <Button size="lg" className="bg-white text-slate-900 hover:bg-slate-100 shadow-xl" onClick={onContact}>Inquire for Free Sample</Button>
            </div>
         </div>
       </div>
@@ -546,7 +550,7 @@ function OemPage({ onContact }: any) {
 }
 
 // ---------------------------------------------------------------------
-// 高级下级页面重构：Certifications
+// 高级下级页面重构：Certifications (整合 Yimilife 真实数据)
 // ---------------------------------------------------------------------
 function CertificationsPage() {
   return (
@@ -555,7 +559,7 @@ function CertificationsPage() {
         <div className="max-w-3xl mx-auto space-y-6 mb-20">
           <Badge className="bg-blue-50 text-blue-700 border-none">Quality Assurance</Badge>
           <h1 className="text-4xl md:text-5xl font-black text-slate-900 tracking-tight">World-Class Compliance</h1>
-          <p className="text-xl text-slate-600 font-medium">Every device leaving our facility undergoes rigorous clinical-grade calibration and adheres strictly to global medical standards.</p>
+          <p className="text-xl text-slate-600 font-medium">Experienced quality inspectors conduct strict inspections on every device. Our facility is IP22 rated and adheres strictly to global medical standards.</p>
         </div>
 
         <div className="grid md:grid-cols-3 gap-8">
@@ -563,9 +567,9 @@ function CertificationsPage() {
              { title: "ISO 13485:2016", desc: "Medical Device Quality Management System Certification.", icon: Building2 },
              { title: "CE (MDR)", desc: "Compliant with the new European Medical Device Regulation.", icon: BadgeCheck },
              { title: "FDA 510(k)", desc: "Cleared for distribution and retail in the United States market.", icon: ShieldCheck },
-             { title: "RoHS / REACH", desc: "Strict adherence to hazardous substances regulations.", icon: CheckCircle2 },
-             { title: "FSC", desc: "Free Sales Certificate available for rapid global registration.", icon: Globe },
-             { title: "40+ Patents", desc: "Continuous innovation in algorithms and hardware design.", icon: Award }
+             { title: "40+ Patents", desc: "Nearly 40 patented technologies and software copyrights obtained.", icon: Award },
+             { title: "IP22 Degree", desc: "Protection against hazards of liquid and solid objects.", icon: ShieldCheck },
+             { title: "RoHS / REACH", desc: "Strict adherence to hazardous substances regulations.", icon: CheckCircle2 }
            ].map((cert, i) => (
              <Card key={i} className="bg-white text-left hover:border-blue-500 transition-colors border-2">
                <CardContent className="p-8">
@@ -584,13 +588,13 @@ function CertificationsPage() {
 }
 
 // ---------------------------------------------------------------------
-// 高级下级页面重构：News
+// 高级下级页面重构：News (基于产品线和展会)
 // ---------------------------------------------------------------------
 function NewsPage() {
   const newsList = [
-    { type: "Exhibition", date: "Nov 11-14, 2024", title: "Yimi Life Showcases at MEDICA 2024, Germany", desc: "Join us at Hall 6, Booth 62C to experience our latest Bluetooth SpO2 and BP monitoring technologies for the European market.", image: "https://images.unsplash.com/photo-1540575861501-7cf05a4b125a?auto=format&fit=crop&q=80&w=800" },
-    { type: "Company News", date: "Sep 15, 2024", title: "New Handheld Oximeter YM-501 Receives CE MDR Clearance", desc: "Our clinical-grade handheld device has successfully passed the rigorous MDR assessment, ensuring top-tier safety and performance.", image: "https://images.unsplash.com/photo-1583947215259-38e31be8751f?auto=format&fit=crop&q=80&w=800" },
-    { type: "Industry Insight", date: "Jul 10, 2024", title: "How to Evaluate an OEM Medical Device Supplier in China", desc: "A comprehensive buyer's guide on auditing factories, checking ISO 13485 validity, and ensuring long-term supply chain stability.", image: "https://images.unsplash.com/photo-1505373877841-8d25f7d46678?auto=format&fit=crop&q=80&w=800" }
+    { type: "New Release", date: "Recent Update", title: "Findmy Oximeter OLED Certified: Dual Color Display Series", desc: "Our new 0.96\" OLED Oximeter supports SpO2 & PR detection, rotatable multi-direction display, and customized software options including alarm settings.", image: "https://images.unsplash.com/photo-1584036561566-baf8f5f1b144?auto=format&fit=crop&q=80&w=800" },
+    { type: "Product Innovation", date: "Recent Update", title: "Expanding Core Lines: Forehead Thermometers & Nebulizers", desc: "To provide a complete homecare solution, Yimi Life has successfully expanded its R&D scope to include professional compressor nebulizers and fast-read thermometers.", image: "https://images.unsplash.com/photo-1583947215259-38e31be8751f?auto=format&fit=crop&q=80&w=800" },
+    { type: "Exhibition", date: "Upcoming", title: "Yimi Life Global Exhibition Roadmap", desc: "We continually participate in global medical exhibitions to showcase our latest HD display Color TFT, LED, and Bluetooth smart oximeters.", image: "https://images.unsplash.com/photo-1540575861501-7cf05a4b125a?auto=format&fit=crop&q=80&w=800" }
   ];
 
   return (
@@ -599,7 +603,7 @@ function NewsPage() {
         <div className="flex flex-col md:flex-row justify-between items-end mb-16 gap-6">
           <div className="space-y-4 max-w-2xl">
             <Badge className="bg-blue-100 text-blue-700 border-none">Latest Updates</Badge>
-            <h1 className="text-4xl md:text-5xl font-black text-slate-900 tracking-tight">Global News & Events</h1>
+            <h1 className="text-4xl md:text-5xl font-black text-slate-900 tracking-tight">Global News & Innovations</h1>
           </div>
         </div>
 
@@ -630,6 +634,9 @@ function NewsPage() {
   );
 }
 
+// ---------------------------------------------------------------------
+// 高级下级页面重构：Contact (整合 N-to-1 服务模式)
+// ---------------------------------------------------------------------
 function ContactPage() {
   return (
     <div className="mx-auto max-w-7xl space-y-12 px-6 py-16 lg:px-8 lg:py-24 animate-in fade-in duration-500">
@@ -638,19 +645,19 @@ function ContactPage() {
       <div className="grid gap-16 lg:grid-cols-[0.8fr_1.2fr]">
         <div className="space-y-12">
           <div className="space-y-6 max-w-md">
-            <Badge className="bg-blue-50 text-blue-700 border-none px-4 py-1.5 shadow-sm">Get in Touch</Badge>
+            <Badge className="bg-blue-50 text-blue-700 border-none px-4 py-1.5 shadow-sm">N-to-1 Service Mode</Badge>
             <h1 className="text-4xl md:text-5xl lg:text-6xl font-black tracking-tight text-slate-900 leading-[1.1]">Start Your OEM Project.</h1>
-            <p className="text-lg leading-relaxed text-slate-500 font-medium">Our specialists in Shenzhen will help you with sample requests, branding details, and certification support.</p>
+            <p className="text-lg leading-relaxed text-slate-500 font-medium">Enjoy our N-to-1 service mode. Live chat or add our WhatsApp/Skype to get a quick response for customized samples and mass production.</p>
           </div>
           
           <div className="space-y-6">
             <div className="flex items-center gap-6 p-6 bg-slate-50/80 rounded-[32px] border border-slate-100 shadow-sm hover:shadow-md hover:border-slate-200 transition-all">
               <div className="w-16 h-16 bg-white shadow-sm rounded-[20px] flex items-center justify-center text-blue-600"><Mail size={28} strokeWidth={2}/></div>
-              <div><div className="text-xs text-slate-400 uppercase font-black tracking-wider mb-1">Email Inquiry</div><div className="text-xl font-bold text-slate-900">linda@yimilife.com</div></div>
+              <div><div className="text-xs text-slate-400 uppercase font-black tracking-wider mb-1">Email Inquiry</div><div className="text-xl font-bold text-slate-900">sales@yimilife.com</div></div>
             </div>
             <div className="flex items-center gap-6 p-6 bg-slate-50/80 rounded-[32px] border border-slate-100 shadow-sm hover:shadow-md hover:border-slate-200 transition-all">
-              <div className="w-16 h-16 bg-white shadow-sm rounded-[20px] flex items-center justify-center text-blue-600"><Phone size={28} strokeWidth={2}/></div>
-              <div><div className="text-xs text-slate-400 uppercase font-black tracking-wider mb-1">Direct Call</div><div className="text-xl font-bold text-slate-900">+86 0755 89369909</div></div>
+              <div className="w-16 h-16 bg-white shadow-sm rounded-[20px] flex items-center justify-center text-blue-600"><MessageCircle size={28} strokeWidth={2}/></div>
+              <div><div className="text-xs text-slate-400 uppercase font-black tracking-wider mb-1">WhatsApp / Skype</div><div className="text-xl font-bold text-slate-900">+86 18X XXXX XXXX</div></div>
             </div>
             <div className="flex items-center gap-6 p-6 bg-slate-50/80 rounded-[32px] border border-slate-100 shadow-sm hover:shadow-md hover:border-slate-200 transition-all">
               <div className="w-16 h-16 bg-white shadow-sm rounded-[20px] flex items-center justify-center text-blue-600"><MapPin size={28} strokeWidth={2}/></div>
@@ -660,35 +667,34 @@ function ContactPage() {
         </div>
 
         <Card className="border-0 shadow-[0_30px_60px_-15px_rgba(0,0,0,0.3)] rounded-[40px] bg-slate-900 text-white overflow-hidden relative">
-           {/* 装饰光影 */}
            <div className="absolute top-0 right-0 w-96 h-96 bg-blue-500/20 rounded-full blur-[100px] pointer-events-none"></div>
           
           <CardContent className="p-8 md:p-12 space-y-10 relative z-10">
             <div>
-              <h3 className="text-3xl font-black mb-3">Send an Inquiry</h3>
-              <p className="text-slate-400 font-medium">Fill out the form below and we'll respond within 24 hours.</p>
+              <h3 className="text-3xl font-black mb-3">Request a Free Sample</h3>
+              <p className="text-slate-400 font-medium">Fill out the form below. Customized samples are typically delivered in 2-5 days.</p>
             </div>
             
             <form onSubmit={(e) => e.preventDefault()} className="grid grid-cols-1 sm:grid-cols-2 gap-6">
               <div className="space-y-3"><label className="text-sm font-bold text-slate-300 tracking-wide">Your Name</label><Input className="bg-slate-800/50 border-slate-700/50 text-white focus-visible:border-blue-500 focus-visible:bg-slate-800" placeholder="John Doe" /></div>
               <div className="space-y-3"><label className="text-sm font-bold text-slate-300 tracking-wide">Company Email</label><Input type="email" className="bg-slate-800/50 border-slate-700/50 text-white focus-visible:border-blue-500 focus-visible:bg-slate-800" placeholder="john@company.com" /></div>
               <div className="space-y-3 sm:col-span-2">
-                <label className="text-sm font-bold text-slate-300 tracking-wide">Interested Product / Service</label>
+                <label className="text-sm font-bold text-slate-300 tracking-wide">Interested Product</label>
                 <div className="relative">
                   <select className="flex h-14 w-full rounded-2xl border-2 border-slate-700/50 bg-slate-800/50 px-5 text-sm text-slate-300 outline-none transition-all focus:border-blue-500 focus:bg-slate-800 appearance-none font-medium cursor-pointer">
                     <option value="" className="text-slate-900">Select an option...</option>
-                    <option value="pulse-oximeter" className="text-slate-900">Pulse Oximeters (OEM/Wholesale)</option>
+                    <option value="pulse-oximeter" className="text-slate-900">Fingertip Pulse Oximeters</option>
                     <option value="bp-monitor" className="text-slate-900">Blood Pressure Monitors</option>
-                    <option value="handheld" className="text-slate-900">Handheld Models</option>
-                    <option value="other" className="text-slate-900">Other Customization Request</option>
+                    <option value="thermometer" className="text-slate-900">Forehead Thermometers</option>
+                    <option value="nebulizer" className="text-slate-900">Compressor Nebulizers</option>
                   </select>
                 </div>
               </div>
               <div className="space-y-3 sm:col-span-2">
-                <label className="text-sm font-bold text-slate-300 tracking-wide">Message Details</label>
-                <Textarea className="bg-slate-800/50 border-slate-700/50 text-white min-h-[160px] focus-visible:border-blue-500 focus-visible:bg-slate-800" placeholder="Tell us about your target market, estimated quantity, and specific requirements..." />
+                <label className="text-sm font-bold text-slate-300 tracking-wide">Message & Branding Details</label>
+                <Textarea className="bg-slate-800/50 border-slate-700/50 text-white min-h-[160px] focus-visible:border-blue-500 focus-visible:bg-slate-800" placeholder="Please specify if you need custom logo, patterns, packaging, or specific software configurations..." />
               </div>
-              <Button type="submit" size="lg" className="w-full h-14 text-base font-black uppercase tracking-wider bg-white text-slate-900 hover:bg-slate-100 sm:col-span-2 shadow-[0_0_20px_rgba(255,255,255,0.2)] hover:shadow-[0_0_30px_rgba(255,255,255,0.3)] border-none">Submit Request</Button>
+              <Button type="submit" size="lg" className="w-full h-14 text-base font-black uppercase tracking-wider bg-white text-slate-900 hover:bg-slate-100 sm:col-span-2 shadow-[0_0_20px_rgba(255,255,255,0.2)] hover:shadow-[0_0_30px_rgba(255,255,255,0.3)] border-none">Submit Inquiry</Button>
             </form>
           </CardContent>
         </Card>
@@ -839,11 +845,11 @@ export default function App() {
                 <span className="text-2xl font-black tracking-tight">Yimi Life</span>
               </div>
               <p className="max-w-md text-sm leading-relaxed text-slate-500 font-medium">
-                ISO 13485 Certified Medical Device Manufacturer. Providing professional OEM/ODM solutions for Pulse Oximeters and Digital Blood Pressure Monitors globally.
+                ISO 13485 Certified Medical Device Manufacturer. Providing professional OEM/ODM solutions for Pulse Oximeters, Digital Blood Pressure Monitors, Thermometers and Nebulizers globally.
               </p>
               <div className="pt-2 space-y-4 text-sm text-slate-600 font-bold">
                 <div className="flex items-center gap-3"><Phone className="h-5 w-5 text-slate-400"/> +86 0755 89369909</div>
-                <div className="flex items-center gap-3"><Mail className="h-5 w-5 text-slate-400"/> linda@yimilife.com</div>
+                <div className="flex items-center gap-3"><Mail className="h-5 w-5 text-slate-400"/> sales@yimilife.com</div>
               </div>
             </div>
             

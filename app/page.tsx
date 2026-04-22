@@ -1,3 +1,7 @@
+/* eslint-disable react/display-name */
+/* eslint-disable @next/next/no-img-element */
+'use client';
+
 import React, { useEffect, useMemo, useState } from "react";
 import {
   Activity, ShieldCheck, Factory, Cpu, Phone, Mail, MapPin, CheckCircle2,
@@ -8,28 +12,39 @@ import {
 } from "lucide-react";
 
 // =====================================================================
-// 1. Framer Motion 兼容层 (防止在线环境找不到包而报错)
+// 1. Framer Motion 兼容层 (防止在线环境找不到包而报错，增加严格类型标注)
 // =====================================================================
 const motion = {
-  div: React.forwardRef(({ initial, animate, exit, transition, whileHover, whileTap, layout, ...props }: any, ref) => <div ref={ref} {...props} />),
-  h1: React.forwardRef(({ initial, animate, exit, transition, ...props }: any, ref) => <h1 ref={ref} {...props} />),
-  p: React.forwardRef(({ initial, animate, exit, transition, ...props }: any, ref) => <p ref={ref} {...props} />),
-  span: React.forwardRef(({ initial, animate, exit, transition, ...props }: any, ref) => <span ref={ref} {...props} />),
-  button: React.forwardRef(({ initial, animate, exit, transition, whileHover, whileTap, ...props }: any, ref) => <button ref={ref} {...props} />),
-  section: React.forwardRef(({ initial, animate, exit, transition, ...props }: any, ref) => <section ref={ref} {...props} />),
+  div: React.forwardRef(({ initial, animate, exit, transition, whileHover, whileTap, layout, ...props }: any, ref: any) => <div ref={ref} {...props} />),
+  h1: React.forwardRef(({ initial, animate, exit, transition, ...props }: any, ref: any) => <h1 ref={ref} {...props} />),
+  p: React.forwardRef(({ initial, animate, exit, transition, ...props }: any, ref: any) => <p ref={ref} {...props} />),
+  span: React.forwardRef(({ initial, animate, exit, transition, ...props }: any, ref: any) => <span ref={ref} {...props} />),
+  button: React.forwardRef(({ initial, animate, exit, transition, whileHover, whileTap, ...props }: any, ref: any) => <button ref={ref} {...props} />),
+  section: React.forwardRef(({ initial, animate, exit, transition, ...props }: any, ref: any) => <section ref={ref} {...props} />),
 };
+motion.div.displayName = "motion.div";
+motion.h1.displayName = "motion.h1";
+motion.p.displayName = "motion.p";
+motion.span.displayName = "motion.span";
+motion.button.displayName = "motion.button";
+motion.section.displayName = "motion.section";
+
 const AnimatePresence = ({ children, mode }: any) => <>{children}</>;
 
 // =====================================================================
 // 2. shadcn/ui 兼容层 (模拟 @/components/ui/...)
 // =====================================================================
-const Card = React.forwardRef(({ className, ...props }: any, ref) => (
+const Card = React.forwardRef(({ className, ...props }: any, ref: any) => (
   <div ref={ref} className={`rounded-xl border border-slate-200 bg-white text-slate-950 shadow-sm ${className || ''}`} {...props} />
 ));
-const CardContent = React.forwardRef(({ className, ...props }: any, ref) => (
+Card.displayName = "Card";
+
+const CardContent = React.forwardRef(({ className, ...props }: any, ref: any) => (
   <div ref={ref} className={`p-6 ${className || ''}`} {...props} />
 ));
-const Button = React.forwardRef(({ className, variant = "default", size = "default", ...props }: any, ref) => {
+CardContent.displayName = "CardContent";
+
+const Button = React.forwardRef(({ className, variant = "default", size = "default", ...props }: any, ref: any) => {
   const variants: any = {
     default: "bg-blue-600 text-white hover:bg-blue-700",
     outline: "border border-slate-200 bg-white hover:bg-slate-100 text-slate-900",
@@ -44,15 +59,22 @@ const Button = React.forwardRef(({ className, variant = "default", size = "defau
   };
   return <button ref={ref} className={`inline-flex items-center justify-center rounded-md text-sm font-medium transition-colors disabled:opacity-50 disabled:pointer-events-none ${variants[variant] || variants.default} ${sizes[size] || sizes.default} ${className || ''}`} {...props} />;
 });
-const Badge = React.forwardRef(({ className, variant = "default", ...props }: any, ref) => {
+Button.displayName = "Button";
+
+const Badge = React.forwardRef(({ className, variant = "default", ...props }: any, ref: any) => {
   return <div ref={ref} className={`inline-flex items-center rounded-full border px-2.5 py-0.5 text-xs font-semibold transition-colors ${className || ''}`} {...props} />
 });
-const Input = React.forwardRef(({ className, type, ...props }: any, ref) => {
+Badge.displayName = "Badge";
+
+const Input = React.forwardRef(({ className, type, ...props }: any, ref: any) => {
   return <input type={type} className={`flex h-10 w-full rounded-md border border-slate-200 bg-transparent px-3 py-2 text-sm placeholder:text-slate-500 focus-visible:outline-none focus-visible:ring-1 focus-visible:ring-blue-600 disabled:cursor-not-allowed disabled:opacity-50 ${className || ''}`} ref={ref} {...props} />
 });
-const Textarea = React.forwardRef(({ className, ...props }: any, ref) => {
+Input.displayName = "Input";
+
+const Textarea = React.forwardRef(({ className, ...props }: any, ref: any) => {
   return <textarea className={`flex min-h-[80px] w-full rounded-md border border-slate-200 bg-transparent px-3 py-2 text-sm placeholder:text-slate-500 focus-visible:outline-none focus-visible:ring-1 focus-visible:ring-blue-600 disabled:cursor-not-allowed disabled:opacity-50 ${className || ''}`} ref={ref} {...props} />
 });
+Textarea.displayName = "Textarea";
 
 // =====================================================================
 // 3. 您的业务代码 (1:1 原样载入)

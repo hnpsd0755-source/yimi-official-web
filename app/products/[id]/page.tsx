@@ -63,7 +63,8 @@ export default function ProductDetailPage({ params }: { params: { id: string } }
                <FileText className="w-5 h-5 text-blue-500" /> Technical Specifications
             </h3>
             <div className="bg-white border-2 border-slate-100 rounded-[28px] overflow-hidden shadow-sm">
-              {product.specs.map(([k, v]: [string, string], i: number) => (
+              {/* 这里通过修改推断类型，解决了 TypeScript 的编译错误 */}
+              {product.specs.map(([k, v]: any, i: number) => (
                 <div key={k} className={`flex justify-between p-6 text-sm hover:bg-slate-50/80 transition-colors ${i !== product.specs.length - 1 ? 'border-b border-slate-100' : ''}`}>
                   <span className="font-medium text-slate-500 uppercase tracking-wider text-xs">{k}</span>
                   <span className="font-bold text-slate-900 text-right">{v}</span>

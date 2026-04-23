@@ -3,13 +3,11 @@
 import React, { useState, useMemo } from "react";
 import { Search, Filter, CheckCircle2 } from "lucide-react";
 
-// ==========================================
-// ⚠️ 注意：以下 Component 和 Data 是为了在当前预览环境中正常显示而临时整合的。
-// 在您复制到 GitHub 时，请将两个分割线中间的代码删除，并替换为真实的 import：
-// import Link from "next/link";
-// import { Badge, Card, CardContent, Input, Button } from "../components";
-// import { categories, productCatalog } from "../data";
-// ==========================================
+// ============================================================================
+// ⚠️ 依赖组件与数据占位 (用于预览环境正常渲染)
+// 在复制到真实项目的 GitHub 中时，如果您已经分离了组件和数据，
+// 请将这段代码替换为原有的 `import { ... } from "../components"`
+// ============================================================================
 const Link = ({ href, children, className }: any) => <a href={href} className={className}>{children}</a>;
 
 const Card = React.forwardRef<HTMLDivElement, React.HTMLAttributes<HTMLDivElement>>(({ className, ...props }, ref) => (
@@ -32,7 +30,7 @@ const Input = React.forwardRef<HTMLInputElement, React.InputHTMLAttributes<HTMLI
 ));
 Input.displayName = 'Input';
 
-const Button = React.forwardRef<HTMLButtonElement, any>(({ className, variant = "default", size = "default", ...props }, ref) => {
+const Button = React.forwardRef<HTMLButtonElement, any>(({ className, variant = "default", ...props }, ref) => {
   const variants: any = {
     default: "bg-gradient-to-b from-blue-500 to-blue-600 text-white hover:from-blue-600 hover:to-blue-700 shadow-md shadow-blue-500/20 border border-blue-600",
     outline: "border-2 border-slate-200 bg-white hover:border-blue-500 hover:text-blue-600 text-slate-700 hover:bg-blue-50/50",
@@ -91,9 +89,7 @@ const productCatalog = [
     specs: [["Type", "Upper-arm BPM"], ["Display", "LCD / color screen"], ["Use Case", "Household use"]]
   }
 ];
-// ==========================================
-// ⬆️ 临时合并的依赖代码结束
-// ==========================================
+// ============================================================================
 
 export default function ProductsPage() {
   const [selectedCategory, setSelectedCategory] = useState("all");

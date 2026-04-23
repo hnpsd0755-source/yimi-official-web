@@ -1,11 +1,99 @@
-// 路径: app/products/page.tsx
 'use client';
 
-import { useState, useMemo } from "react";
-import Link from "next/link";
+import React, { useState, useMemo } from "react";
 import { Search, Filter, CheckCircle2 } from "lucide-react";
-import { Badge, Card, CardContent, Input, Button } from "../components";
-import { categories, productCatalog } from "../data";
+
+// ==========================================
+// ⚠️ 注意：以下 Component 和 Data 是为了在当前预览环境中正常显示而临时整合的。
+// 在您复制到 GitHub 时，请将两个分割线中间的代码删除，并替换为真实的 import：
+// import Link from "next/link";
+// import { Badge, Card, CardContent, Input, Button } from "../components";
+// import { categories, productCatalog } from "../data";
+// ==========================================
+const Link = ({ href, children, className }: any) => <a href={href} className={className}>{children}</a>;
+
+const Card = React.forwardRef<HTMLDivElement, React.HTMLAttributes<HTMLDivElement>>(({ className, ...props }, ref) => (
+  <div ref={ref} className={`rounded-[32px] border border-slate-100 bg-white shadow-[0_2px_10px_rgba(0,0,0,0.02)] transition-all duration-300 hover:-translate-y-1 hover:shadow-[0_20px_40px_-15px_rgba(0,0,0,0.05)] hover:border-slate-200 ${className || ''}`} {...props} />
+));
+Card.displayName = 'Card';
+
+const CardContent = React.forwardRef<HTMLDivElement, React.HTMLAttributes<HTMLDivElement>>(({ className, ...props }, ref) => (
+  <div ref={ref} className={`p-6 md:p-8 ${className || ''}`} {...props} />
+));
+CardContent.displayName = 'CardContent';
+
+const Badge = React.forwardRef<HTMLDivElement, React.HTMLAttributes<HTMLDivElement>>(({ className, ...props }, ref) => (
+  <div ref={ref} className={`inline-flex items-center rounded-full border border-blue-100 bg-blue-50/80 px-3.5 py-1.5 text-xs font-bold tracking-wide text-blue-700 backdrop-blur-sm transition-colors ${className || ''}`} {...props} />
+));
+Badge.displayName = 'Badge';
+
+const Input = React.forwardRef<HTMLInputElement, React.InputHTMLAttributes<HTMLInputElement>>(({ className, type, ...props }, ref) => (
+  <input type={type} className={`flex h-14 w-full rounded-2xl border-2 border-slate-100 bg-slate-50/50 px-5 py-2 text-sm placeholder:text-slate-400 focus-visible:outline-none focus-visible:border-blue-500 focus-visible:bg-white disabled:cursor-not-allowed disabled:opacity-50 transition-all duration-300 ${className || ''}`} ref={ref} {...props} />
+));
+Input.displayName = 'Input';
+
+const Button = React.forwardRef<HTMLButtonElement, any>(({ className, variant = "default", size = "default", ...props }, ref) => {
+  const variants: any = {
+    default: "bg-gradient-to-b from-blue-500 to-blue-600 text-white hover:from-blue-600 hover:to-blue-700 shadow-md shadow-blue-500/20 border border-blue-600",
+    outline: "border-2 border-slate-200 bg-white hover:border-blue-500 hover:text-blue-600 text-slate-700 hover:bg-blue-50/50",
+  };
+  return <button ref={ref} className={`inline-flex items-center justify-center font-bold tracking-wide transition-all duration-300 disabled:opacity-50 disabled:pointer-events-none active:scale-[0.98] ${variants[variant] || variants.default} h-12 px-6 rounded-2xl ${className || ''}`} {...props} />;
+});
+Button.displayName = 'Button';
+
+const categories = [
+  { key: "all", title: "All Products" },
+  { key: "fingertip", title: "Fingertip Pulse Oximeters" },
+  { key: "blood-pressure", title: "Blood Pressure Monitors" },
+  { key: "handheld", title: "Handheld Oximeters" },
+  { key: "oem", title: "OEM / ODM Solutions" },
+];
+
+const productCatalog = [
+  {
+    id: "ym-f01",
+    name: "Economy Fingertip Pulse Oximeter",
+    category: "fingertip",
+    tag: "Cost-effective",
+    image: "https://c108.hongcdn.com/uploads/2207/fda-oximeter-8-%21j.webp",
+    shortDesc: "A compact fingertip model for high-volume retail and entry private-label projects.",
+    features: ["Compact design", "Fast-read display", "Private-label ready", "Household use"],
+    specs: [["Display", "LED"], ["Power", "AAA batteries"], ["Use Case", "Retail / E-commerce"]]
+  },
+  {
+    id: "ym-f02",
+    name: "Professional Fingertip Pulse Oximeter",
+    category: "fingertip",
+    tag: "Mainstream retail",
+    image: "https://c108.hongcdn.com/uploads/2205/professional-pulse-oximeter-facotry-4-%21j.webp",
+    shortDesc: "A cleaner-looking mainstream model suitable for stronger shelf presentation.",
+    features: ["Waveform display", "Color screen", "Retail-friendly", "High accuracy"],
+    specs: [["Display", "Color OLED / TFT"], ["Form", "Fingertip clip"], ["Positioning", "Mainstream retail"]]
+  },
+  {
+    id: "ym-h01",
+    name: "TFT Display Handheld Pulse Oximeter",
+    category: "handheld",
+    tag: "Advanced interface",
+    image: "https://c108.hongcdn.com/uploads/2507/04-%21j.webp",
+    shortDesc: "A handheld oximeter layout with larger display emphasis and professional visual.",
+    features: ["Larger display", "Portable format", "Mid/high-tier", "Continuous monitoring"],
+    specs: [["Display", "TFT display"], ["Format", "Handheld"], ["Positioning", "Clinical & Home"]]
+  },
+  {
+    id: "ym-b01",
+    name: "Arm Blood Pressure Monitor",
+    category: "blood-pressure",
+    tag: "Home-use BPM",
+    image: "https://c108.hongcdn.com/uploads/2205/09115040123-%21j.webp",
+    shortDesc: "A home-use upper-arm blood pressure monitor category entry.",
+    features: ["Upper-arm cuff", "Color display", "Home-use positioning", "OEM packaging"],
+    specs: [["Type", "Upper-arm BPM"], ["Display", "LCD / color screen"], ["Use Case", "Household use"]]
+  }
+];
+// ==========================================
+// ⬆️ 临时合并的依赖代码结束
+// ==========================================
 
 export default function ProductsPage() {
   const [selectedCategory, setSelectedCategory] = useState("all");
@@ -36,7 +124,7 @@ export default function ProductsPage() {
               <Search className="absolute left-4 top-1/2 h-5 w-5 -translate-y-1/2 text-slate-400" />
               <Input 
                 value={keyword} 
-                onChange={(e) => setKeyword(e.target.value)} 
+                onChange={(e: React.ChangeEvent<HTMLInputElement>) => setKeyword(e.target.value)} 
                 placeholder="Search models or keywords..." 
                 className="pl-12 bg-white" 
               />
@@ -82,7 +170,7 @@ export default function ProductsPage() {
                 </div>
               </CardContent>
               <div className="px-6 pb-6 pt-2">
-                 <Button variant="outline" className="w-full h-12 bg-slate-50/50 border-slate-200">View Specifications</Button>
+                 <Button variant="outline" className="w-full bg-slate-50/50 border-slate-200">View Specifications</Button>
               </div>
             </Card>
           </Link>
